@@ -56,6 +56,17 @@ def search(title=None, author=None, year=None, isbn=None):
     return rows
 
 
+def delete(id):
+    conn = psycopg2.connect(
+        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+    )
+    cur = conn.cursor()
+    cur.execute("DELETE FROM book WHERE id = %s", (id,))
+    conn.commit()
+    conn.close()
+
+
 connect()
+insert("Green Eggs and Ham", "Dr.Seuss", 2003, 11233440)
+delete(1)
 print(view())
-print(search(author="Dr.Seuss"))
