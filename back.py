@@ -66,7 +66,21 @@ def delete(id):
     conn.close()
 
 
+def update(id, title, author, year, isbn):
+    conn = psycopg2.connect(
+        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+    )
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE book SET title = %s, author = %s, year = %s, isbn = %s WHERE id = %s ",
+        (title, author, year, isbn, id),
+    )
+    conn.commit()
+    conn.close()
+
+
 connect()
-insert("Green Eggs and Ham", "Dr.Seuss", 2003, 11233440)
-delete(1)
+# insert("Green Eggs and Ham", "Dr.Seuss", 2003, 11233440)
+# delete(1)
+update(2, "updateTest", "Mr.test", 2021, 1123945)
 print(view())
