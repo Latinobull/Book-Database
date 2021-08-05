@@ -42,6 +42,20 @@ def view():
     return rows
 
 
+def search(title=None, author=None, year=None, isbn=None):
+    conn = psycopg2.connect(
+        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+    )
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT * FROM book WHERE title = %s OR author = %s OR year = %s OR isbn = %s",
+        (title, author, year, isbn),
+    )
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+
 connect()
-insert("Test", "Mr.Test", 2021, 234729175)
 print(view())
+print(search(author="Dr.Seuss"))
