@@ -42,18 +42,30 @@ def view():
     return rows
 
 
-def search(title=None, author=None, year=0, isbn=0):
-    conn = psycopg2.connect(
-        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
-    )
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT * FROM book WHERE title = ? OR author = ? OR year =? OR isbn = ?"(
-            title, author, year, isbn
-        ),
-    )
-    rows = cur.fetchall()
-    conn.close()
+def search(title=None, author=None, year=None, isbn=None):
+    conditions = []
+    args = []
+    if title:
+        conditions.append("title = %s")
+        args.append(title)
+    if author:
+        conditions.append("author = %s")
+        args.append(author)
+    if year:
+        conditions.append("year = %s")
+        args.append(year)
+    if isbn:
+        conditions.append("isbn = %s")
+        args.append(isbn)
+    if conditions:
+        sql = f"SELECT * FROM book WHERE {' OR '.join(conditions)}"
+        conn = psycopg2.connect(
+            "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+        )
+        cur = conn.cursor()
+        cur.execute(sql, args)
+        rows = cur.fetchall()
+        conn.close()
     return rows
 
 
