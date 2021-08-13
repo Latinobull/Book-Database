@@ -42,14 +42,15 @@ def view():
     return rows
 
 
-def search(title=None, author=None, year=None, isbn=None):
+def search(title=None, author=None, year=0, isbn=0):
     conn = psycopg2.connect(
         "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
     )
     cur = conn.cursor()
     cur.execute(
-        "SELECT * FROM book WHERE title = %s OR author = %s OR year = %s OR isbn = %s",
-        (title, author, year, isbn),
+        "SELECT * FROM book WHERE title = ? OR author = ? OR year =? OR isbn = ?"(
+            title, author, year, isbn
+        ),
     )
     rows = cur.fetchall()
     conn.close()
@@ -81,6 +82,7 @@ def update(id, title, author, year, isbn):
 
 connect()
 # insert("Green Eggs and Ham", "Dr.Seuss", 2003, 11233440)
+# insert("Cat in the Hat", "Dr.Seuss", 2001, 11234790)
 # delete(1)
-update(2, "updateTest", "Mr.test", 2021, 1123945)
+# update(2, "updateTest", "Mr.test", 2021, 1123945)
 print(view())

@@ -1,6 +1,21 @@
 from tkinter import *
 import back
 
+
+def viewCommand():
+    LB.delete(0, END)
+    for row in back.view():
+        LB.insert(END, row)
+
+
+def searchCommand():
+    LB.delete(0, END)
+    for row in back.search(
+        Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get()
+    ):
+        LB.insert(END, row)
+
+
 window = Tk()
 
 TitleL = Label(window, text="Title")
@@ -39,10 +54,10 @@ sb1.grid(row=2, column=2, rowspan=6)
 LB.configure(yscrollcommand=sb1.set)
 sb1.configure(command=LB.yview)
 
-b1 = Button(window, text="View All", width=12)
+b1 = Button(window, text="View All", width=12, command=viewCommand)
 b1.grid(row=2, column=3)
 
-b2 = Button(window, text="Search Entry", width=12)
+b2 = Button(window, text="Search Entry", width=12, command=searchCommand)
 b2.grid(row=3, column=3)
 
 b3 = Button(window, text="Add Entry", width=12)
@@ -50,6 +65,7 @@ b3.grid(row=4, column=3)
 
 b4 = Button(window, text="Update", width=12)
 b4.grid(row=5, column=3)
+
 
 b5 = Button(window, text="Delete", width=12)
 b5.grid(row=6, column=3)
