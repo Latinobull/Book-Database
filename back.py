@@ -66,6 +66,7 @@ def search(title=None, author=None, year=None, isbn=None):
         cur.execute(sql, args)
         rows = cur.fetchall()
         conn.close()
+        # fixed commit
     return rows
 
 
