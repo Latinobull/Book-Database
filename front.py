@@ -10,10 +10,15 @@ def viewCommand():
 
 def searchCommand():
     LB.delete(0, END)
-    for row in back.search(
-        Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get()
-    ):
-        LB.insert(END, row)
+    try:
+
+        for row in back.search(
+            Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get()
+        ):
+            LB.insert(END, row)
+    except UnboundLocalError:
+        nocontent = "You didn`t add any content in the search engine"
+        LB.insert(END, nocontent)
 
 
 window = Tk()
@@ -53,6 +58,11 @@ sb1 = Scrollbar(window)
 sb1.grid(row=2, column=2, rowspan=6)
 LB.configure(yscrollcommand=sb1.set)
 sb1.configure(command=LB.yview)
+
+sb2 = Scrollbar(window, orient="horizontal")
+sb2.grid(row=7, column=0, columnspan=2)
+LB.configure(xscrollcommand=sb2.set)
+sb2.configure(command=LB.xview)
 
 b1 = Button(window, text="View All", width=12, command=viewCommand)
 b1.grid(row=2, column=3)
