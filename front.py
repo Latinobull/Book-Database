@@ -21,6 +21,10 @@ def searchCommand():
         LB.insert(END, nocontent)
 
 
+def addCommand():
+    back.insert(Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get())
+
+
 window = Tk()
 
 TitleL = Label(window, text="Title")
@@ -70,7 +74,7 @@ b1.grid(row=2, column=3)
 b2 = Button(window, text="Search Entry", width=12, command=searchCommand)
 b2.grid(row=3, column=3)
 
-b3 = Button(window, text="Add Entry", width=12)
+b3 = Button(window, text="Add Entry", width=12, command=addCommand)
 b3.grid(row=4, column=3)
 
 b4 = Button(window, text="Update", width=12)
