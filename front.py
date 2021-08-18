@@ -33,8 +33,34 @@ def addCommand():
     ISBN_Entry.delete(0, END)
 
 
+def deleteCommand():
+    back.delete(selectedTuple[0])
+    LB.delete(0, END)
+    for row in back.view():
+        LB.insert(END, row)
+
+    Title_Entry.delete(0, END)
+    Author_Entry.delete(0, END)
+    Year_Entry.delete(0, END)
+    ISBN_Entry.delete(0, END)
+
+
 def closeCommand():
     window.destroy()
+
+
+def getSelectedRow(event):
+    global selectedTuple
+    index = LB.curselection()[0]
+    selectedTuple = LB.get(index)
+    Title_Entry.delete(0, END)
+    Title_Entry.insert(END, selectedTuple[1])
+    Author_Entry.delete(0, END)
+    Author_Entry.insert(END, selectedTuple[2])
+    Year_Entry.delete(0, END)
+    Year_Entry.insert(END, selectedTuple[3])
+    ISBN_Entry.delete(0, END)
+    ISBN_Entry.insert(END, selectedTuple[4])
 
 
 window = Tk()
@@ -80,6 +106,8 @@ sb2.grid(row=7, column=0, columnspan=2)
 LB.configure(xscrollcommand=sb2.set)
 sb2.configure(command=LB.xview)
 
+LB.bind("<<ListboxSelect>>", getSelectedRow)
+
 b1 = Button(window, text="View All", width=12, command=viewCommand)
 b1.grid(row=2, column=3)
 
@@ -93,7 +121,7 @@ b4 = Button(window, text="Update", width=12)
 b4.grid(row=5, column=3)
 
 
-b5 = Button(window, text="Delete", width=12)
+b5 = Button(window, text="Delete", width=12, command=deleteCommand)
 b5.grid(row=6, column=3)
 
 b6 = Button(window, text="Close", width=12, command=closeCommand)
