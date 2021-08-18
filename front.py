@@ -23,6 +23,14 @@ def searchCommand():
 
 def addCommand():
     back.insert(Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get())
+    LB.delete(0, END)
+    LB.insert(
+        END, (Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get())
+    )
+    Title_Entry.delete(0, END)
+    Author_Entry.delete(0, END)
+    Year_Entry.delete(0, END)
+    ISBN_Entry.delete(0, END)
 
 
 window = Tk()
