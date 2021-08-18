@@ -1,9 +1,16 @@
 import psycopg2
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+USER = os.getenv("USER")
+PASSWORD = os.getenv("PASSWORD")
 
 
 def connect():
     conn = psycopg2.connect(
-        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+        f"dbname='books' user={USER} password='{PASSWORD}' host='localhost' port='5432'"
     )
     cur = conn.cursor()
     cur.execute(
@@ -15,7 +22,7 @@ def connect():
 
 def insert(title, author, year, isbn):
     conn = psycopg2.connect(
-        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+        f"dbname='books' user='{USER}' password='{PASSWORD}' host='localhost' port='5432'"
     )
     cur = conn.cursor()
     cur.execute(
@@ -33,7 +40,7 @@ def insert(title, author, year, isbn):
 
 def view():
     conn = psycopg2.connect(
-        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+        f"dbname='books' user='{USER}' password='{PASSWORD}' host='localhost' port='5432'"
     )
     cur = conn.cursor()
     cur.execute("SELECT * FROM book")
@@ -60,7 +67,7 @@ def search(title=None, author=None, year=None, isbn=None):
     if conditions:
         sql = f"SELECT * FROM book WHERE {' OR '.join(conditions)}"
         conn = psycopg2.connect(
-            "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+            f"dbname='books' user='{USER}' password='{PASSWORD}' host='localhost' port='5432'"
         )
         cur = conn.cursor()
         cur.execute(sql, args)
@@ -71,7 +78,7 @@ def search(title=None, author=None, year=None, isbn=None):
 
 def delete(id):
     conn = psycopg2.connect(
-        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+        f"dbname='books' user='{USER}' password='{PASSWORD}' host='localhost' port='5432'"
     )
     cur = conn.cursor()
     cur.execute("DELETE FROM book WHERE id = %s", (id,))
@@ -81,7 +88,7 @@ def delete(id):
 
 def update(id, title, author, year, isbn):
     conn = psycopg2.connect(
-        "dbname='books' user='postgres' password='djdx1997' host='localhost' port='5432'"
+        f"dbname='books' user='{USER}' password='{PASSWORD}' host='localhost' port='5432'"
     )
     cur = conn.cursor()
     cur.execute(
