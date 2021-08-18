@@ -33,6 +33,10 @@ def addCommand():
     ISBN_Entry.delete(0, END)
 
 
+def closeCommand():
+    window.destroy()
+
+
 window = Tk()
 
 TitleL = Label(window, text="Title")
@@ -92,7 +96,7 @@ b4.grid(row=5, column=3)
 b5 = Button(window, text="Delete", width=12)
 b5.grid(row=6, column=3)
 
-b6 = Button(window, text="Close", width=12)
+b6 = Button(window, text="Close", width=12, command=closeCommand)
 b6.grid(row=7, column=3)
 
 window.mainloop()
