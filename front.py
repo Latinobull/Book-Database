@@ -45,6 +45,24 @@ def deleteCommand():
     ISBN_Entry.delete(0, END)
 
 
+def updateCommand():
+    back.update(
+        selectedTuple[0],
+        Title_text.get(),
+        Author_text.get(),
+        Year_text.get(),
+        ISBN_text.get(),
+    )
+    LB.delete(0, END)
+    for row in back.view():
+        LB.insert(END, row)
+
+    Title_Entry.delete(0, END)
+    Author_Entry.delete(0, END)
+    Year_Entry.delete(0, END)
+    ISBN_Entry.delete(0, END)
+
+
 def closeCommand():
     window.destroy()
 
@@ -117,7 +135,7 @@ b2.grid(row=3, column=3)
 b3 = Button(window, text="Add Entry", width=12, command=addCommand)
 b3.grid(row=4, column=3)
 
-b4 = Button(window, text="Update", width=12)
+b4 = Button(window, text="Update", width=12, command=updateCommand)
 b4.grid(row=5, column=3)
 
 
