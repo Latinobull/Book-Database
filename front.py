@@ -83,6 +83,8 @@ def getSelectedRow(event):
 
 window = Tk()
 
+window.wm_title("Bookstore")
+
 TitleL = Label(window, text="Title")
 TitleL.grid(row=0, column=0)
 
