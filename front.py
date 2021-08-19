@@ -1,10 +1,12 @@
 from tkinter import *
-import back
+from back import Database
+
+database = Database()
 
 
 def viewCommand():
     LB.delete(0, END)
-    for row in back.view():
+    for row in database.view():
         LB.insert(END, row)
 
 
@@ -12,7 +14,7 @@ def searchCommand():
     LB.delete(0, END)
     try:
 
-        for row in back.search(
+        for row in database.search(
             Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get()
         ):
             LB.insert(END, row)
@@ -22,7 +24,9 @@ def searchCommand():
 
 
 def addCommand():
-    back.insert(Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get())
+    database.insert(
+        Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get()
+    )
     LB.delete(0, END)
     LB.insert(
         END, (Title_text.get(), Author_text.get(), Year_text.get(), ISBN_text.get())
@@ -34,9 +38,9 @@ def addCommand():
 
 
 def deleteCommand():
-    back.delete(selectedTuple[0])
+    database.delete(selectedTuple[0])
     LB.delete(0, END)
-    for row in back.view():
+    for row in database.view():
         LB.insert(END, row)
 
     Title_Entry.delete(0, END)
@@ -46,7 +50,7 @@ def deleteCommand():
 
 
 def updateCommand():
-    back.update(
+    database.update(
         selectedTuple[0],
         Title_text.get(),
         Author_text.get(),
@@ -54,7 +58,7 @@ def updateCommand():
         ISBN_text.get(),
     )
     LB.delete(0, END)
-    for row in back.view():
+    for row in database.view():
         LB.insert(END, row)
 
     Title_Entry.delete(0, END)
